@@ -31,7 +31,7 @@ fun eventCard(event: Event?) {
     Card(
         elevation = 2.dp,
         backgroundColor = MaterialTheme.colors.surface,
-        shape = RoundedCornerShape(6),
+        shape = RoundedCornerShape(6.dp),
         modifier = Modifier
             .fillMaxWidth(1f).padding(vertical = 5.dp, horizontal = 10.dp)
     ) {

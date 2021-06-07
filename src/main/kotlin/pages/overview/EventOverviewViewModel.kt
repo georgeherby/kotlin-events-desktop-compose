@@ -18,8 +18,8 @@ import retrofit2.Response
 import services.EventsService
 
 class EventOverviewViewModel(private val eventsService: EventsService) {
-
     var state by mutableStateOf<EventState>(EmptyState())
+
 
     fun getEvents() {
         state = LoadingState()
@@ -37,24 +37,20 @@ class EventOverviewViewModel(private val eventsService: EventsService) {
                         } else {
                             LoadedState(response.body()!!.events)
                         }
-
                     }
-
                 })
-
-//                Log.info("response")
-//                state = if (response.events.isEmpty()) {
-//                    Log.info("EMPTY")
-//                    EmptyState()
-//                }
-//                else {
-//                    Log.info(response.events.toString())
-//                    LoadedState(response.events)
-//                }
             }
         } catch (e: Exception) {
             state = ErrorState()
         }
     }
 
+    fun filterByLang(lang: String) {
+        if (state is LoadedState) {
+            val filteredEvents = (state as LoadedState).events.filter {
+                it.lang.equals(lang, ignoreCase = false)
+            }
+            state = LoadedState(filteredEvents)
+        }
+    }
 }
